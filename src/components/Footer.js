@@ -1,7 +1,17 @@
 import React, {memo} from "react";
+import {connect} from 'react-redux'
+import { filterByStatus } from "../helpers/todosHelper";
+import { setStatusFilter, clearCompleted } from "../store/actions";
 
 const Footer = memo(props => {
-    const {status, setStatusFilter, numOfTodosLeft, numOfTodos, clearCompleted} = props
+    const {
+        status, 
+        setStatusFilter, 
+        numOfTodosLeft, 
+        numOfTodos, 
+        clearCompleted
+    } = props
+    
     const filterBtns = [{
         title: 'Все',
         isActived: status === 'ALL',
@@ -63,4 +73,19 @@ const FilterBtn = memo(props => {
     )
 })
 
-export default Footer;
+const mapStateToProps = (state) => {
+    const {todosList, status} = state.todos
+    return {
+        status,
+        numOfTodos: todosList.length,
+        numOfTodosLeft: filterByStatus(todosList, 'ACTIVE').length
+    }
+
+}
+
+const mapDispatchToProps = {
+    setStatusFilter,
+    clearCompleted,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

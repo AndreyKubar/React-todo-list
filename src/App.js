@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux'
+import store from './store'
 
 import './App.css';
 import Header from './components/Header';
@@ -22,110 +24,113 @@ const filterByStatus = (todos = [], status = '', id = '') => {
 }
 
 class App extends React.Component {
-  state = {
-    todosList: [],
-    todoEditId: '',
-    isChecked: false,
-    status: 'ALL'
-  }
+  // state = {
+  //   todosList: [],
+  //   todoEditId: '',
+  //   isChecked: false,
+  //   status: 'ALL'
+  // }
 
-  componentWillMount() {
-    this.setState({
-      isChecked: !isNotChecked(this.state.todosList)
-    })
-  }
+  // componentWillMount() {
+  //   this.setState({
+  //     isChecked: !isNotChecked(this.state.todosList)
+  //   })
+  // }
 
-  addTodo = (todo = {}) => {
-    this.setState(preState => ({
-      todosList: [...preState.todosList, todo]
-    }))
-    console.log(todo);
-  }
+  // addTodo = (todo = {}) => {
+  //   this.setState(preState => ({
+  //     todosList: [...preState.todosList, todo]
+  //   }))
+  //   console.log(todo);
+  // }
 
-  getTodoEditId = (id = '') => {
-    this.setState({ todoEditId: id})
-  }
+  // getTodoEditId = (id = '') => {
+  //   this.setState({ todoEditId: id})
+  // }
 
-  onEditTodo = (todo = {}, index = -1) => {
-    if (index >= 0) {
-      const {todosList: list} = this.state
-      list.splice(index, 1, todo)
-      this.setState({
-        todosList: list,
-        todoEditId: '',
-        isNotChecked: false,
-      })
-    }
-  }
+  // onEditTodo = (todo = {}, index = -1) => {
+  //   if (index >= 0) {
+  //     const {todosList: list} = this.state
+  //     list.splice(index, 1, todo)
+  //     this.setState({
+  //       todosList: list,
+  //       todoEditId: '',
+  //       isNotChecked: false,
+  //     })
+  //   }
+  // }
 
-  todoCompleted = (id = '') => {
-    const {todosList} = this.state
-    const updateList = todosList.map(todo => todo.id === id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
-    this.setState(preState => ({
-      todosList: updateList,
-      isChecked: !isNotChecked(updateList)
-    }))
-  }
+  // todoCompleted = (id = '') => {
+  //   const {todosList} = this.state
+  //   const updateList = todosList.map(todo => todo.id === id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
+  //   this.setState(preState => ({
+  //     todosList: updateList,
+  //     isChecked: !isNotChecked(updateList)
+  //   }))
+  // }
 
-  checkAllTodos = () => { 
-    const {todosList, isChecked} = this.state
-    this.setState(preState => ({
-      todosList: todosList.map(todo => ({...todo, isCompleted: !isChecked})),
-      isChecked: !preState.isChecked
-    }))
-  }
+  // checkAllTodos = () => { 
+  //   const {todosList, isChecked} = this.state
+  //   this.setState(preState => ({
+  //     todosList: todosList.map(todo => ({...todo, isCompleted: !isChecked})),
+  //     isChecked: !preState.isChecked
+  //   }))
+  // }
 
-  setStatusFilter = (status = '') => {
-    this.setState({
-      status
-    })
-  } 
+  // setStatusFilter = (status = '') => {
+  //   this.setState({
+  //     status
+  //   })
+  // } 
 
-  clearCompleted = () => {
-    const {todosList} = this.state
-    this.setState({
-      todosList: filterByStatus(todosList, 'ACTIVE')
-    })
-  }
+  // clearCompleted = () => {
+  //   const {todosList} = this.state
+  //   this.setState({
+  //     todosList: filterByStatus(todosList, 'ACTIVE')
+  //   })
+  // }
 
-  removeTodo =(id = '') => {
-    const {todosList} = this.state
-    this.setState({
-      todosList: filterByStatus(todosList, 'REMOVE', id)
-    })
-  }
+  // removeTodo =(id = '') => {
+  //   const {todosList} = this.state
+  //   this.setState({
+  //     todosList: filterByStatus(todosList, 'REMOVE', id)
+  //   })
+  // }
 
 
   render () {
 
-    const { todosList, todoEditId, isChecked, status } = this.state
+    // const { todosList, todoEditId, isChecked, status } = this.state
     return (
-      <div className="todoapp">
-  
-          <Header
-            addTodo={this.addTodo}
-            isChecked={isChecked}
+      <Provider store={store}>
+        <div className="todoapp">
 
-           />
-          <TodoList 
-            todosList={filterByStatus(todosList, status)}
-            getTodoEditId={this.getTodoEditId}
-            todoEditId={todoEditId}
-            onEditTodo={this.onEditTodo}
-            todoCompleted={this.todoCompleted}
-            isChecked={isChecked}
-            checkAllTodos={this.checkAllTodos}
-            removeTodo={this.removeTodo}
+          <Header
+            // addTodo={this.addTodo}
+            // isChecked={isChecked}
+
           />
-          <Footer 
-            setStatusFilter={this.setStatusFilter}
-            status={status}
-            clearCompleted={this.clearCompleted}
-            numOfTodos={todosList.length}
-            numOfTodosLeft={filterByStatus(todosList, 'ACTIVE').length}
+          <TodoList
+            // todosList={filterByStatus(todosList, status)}
+            // getTodoEditId={this.getTodoEditId}
+            // todoEditId={todoEditId}
+            // onEditTodo={this.onEditTodo}
+            // todoCompleted={this.todoCompleted}
+            // isChecked={isChecked}
+            // checkAllTodos={this.checkAllTodos}
+            // removeTodo={this.removeTodo}
           />
-  
-      </div>
+          <Footer
+            // setStatusFilter={this.setStatusFilter}
+            // status={status}
+            // clearCompleted={this.clearCompleted}
+            // numOfTodos={todosList.length}
+            // numOfTodosLeft={filterByStatus(todosList, 'ACTIVE').length}
+          />
+
+        </div>
+      </Provider>
+
     );
   }
   
