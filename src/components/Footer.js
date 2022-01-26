@@ -11,7 +11,7 @@ const Footer = memo(props => {
         numOfTodos, 
         clearCompleted
     } = props
-    
+
     const filterBtns = [{
         title: 'Все',
         isActived: status === 'ALL',
@@ -50,7 +50,11 @@ const Footer = memo(props => {
                     )) 
                 }
             </ul>
-            {numOfTodos > numOfTodosLeft &&<button className="clear-completed" onClick={clearCompleted}>Удалить выполненые</button>}
+            {numOfTodos > numOfTodosLeft &&
+                <button 
+                    className="clear-completed" onClick={clearCompleted}>Удалить выполненые
+                </button>
+            }
         </footer>
     )
 })

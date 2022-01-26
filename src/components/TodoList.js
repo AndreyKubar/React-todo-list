@@ -32,7 +32,7 @@ const TodoList = memo(props => {
 const mapStateToProps = (state) => {
     return {
         todosList: filterByStatus(state.todos.todosList, state.todos.status),
-        isChecked: state.todos.isChecked
+        isChecked: state.todos.isChecked,
     }
 };
 

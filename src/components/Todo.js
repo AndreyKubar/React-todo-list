@@ -69,7 +69,7 @@ const mapDispatchToProps = {
     getTodoEditId,
     onEditTodo,
     todoCompleted,
-    removeTodo
+    removeTodo,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);

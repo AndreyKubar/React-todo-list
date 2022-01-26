@@ -6,7 +6,7 @@ import {
     TODO_COMPLETED,
     REMOVE_TODO,
     SET_STATUS_FILTER,
-    CLEAR_COMPLETED,
+    CLEAR_COMPLETED
 } from './../actions'
 
 import { isNotChecked, filterByStatus } from '../../helpers/todosHelper'
@@ -41,22 +41,26 @@ const todosRedcers = (state = INITIAL_STATE, action) => {
                 todoEditId: ''
             })
         case TODO_COMPLETED:
-            const updateList = todosList.map(todo => todo.id === action.id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
+            const updateList = todosList.map(todo => 
+                todo.id === action.id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
             return Object.assign({}, state, {
               todosList: updateList,
               isChecked: !isNotChecked(updateList)
 
             })
+
         case CHECK_ALL_TODOS:
             return Object.assign({}, state, {
                 todosList: todosList.map(todo => ({...todo, isCompleted: !isChecked})),
                 isChecked: !isChecked
             })
+
         case REMOVE_TODO:
             return Object.assign({}, state, {
                 todosList: filterByStatus(todosList, 'REMOVE', action.id)
 
             })
+
         case SET_STATUS_FILTER:
             return Object.assign({}, state, {
                 status: action.status
@@ -66,6 +70,7 @@ const todosRedcers = (state = INITIAL_STATE, action) => {
             return Object.assign({}, state, {
               todosList: filterByStatus(todosList, 'ACTIVE')
             })
+            
         default:
             return state
     }

@@ -7,6 +7,7 @@ export const REMOVE_TODO = 'REMOVE_TODO'
 export const SET_STATUS_FILTER = 'SET_STATUS_FILTER'
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED'
 
+
 export const addTodo = (todo = {}) => {
     return {
         todo,
