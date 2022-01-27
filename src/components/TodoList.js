@@ -36,7 +36,6 @@ const mapStateToProps = (state) => {
     return {
         todosList: filterByStatus(state.todos.todosList, state.todos.status),
         // todosList: filterByStatus(state),
-        // todosList: filterByStatus(state.todosList, state.status),
 
         isChecked: state.todos.isChecked,
     }

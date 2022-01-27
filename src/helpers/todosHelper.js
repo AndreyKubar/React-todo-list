@@ -23,7 +23,7 @@ export const filterByStatus = (todos = [], status = '', id = '') => {
 // const getId = (state) => state.id 
 
 // export const filterByStatus = createSelector(
-//   // [getTodos, getStatus, getId],
+//   [getTodos, getStatus, getId],
 //   (todos, status, id) => {
 
 //     switch (status) {

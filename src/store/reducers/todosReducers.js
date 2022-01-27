@@ -26,7 +26,7 @@ const todosRedcers = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_TODO:
             return {
-                state,
+                ...state,
                 todosList: [...todosList, action.todo]
             }
         case GET_TODO_EDIT_ID:
