@@ -18,7 +18,10 @@ const TodoList = memo(props => {
                     <Todo 
                         key={`todo${todo.id}`} 
                         todo={todo}
-                        {...props} 
+                        // {...props}
+                        todosList={todosList}
+                        isChecked={isChecked}
+                        checkAllTodos={checkAllTodos} 
                         index={index}
 
                     />)
@@ -32,6 +35,9 @@ const TodoList = memo(props => {
 const mapStateToProps = (state) => {
     return {
         todosList: filterByStatus(state.todos.todosList, state.todos.status),
+        // todosList: filterByStatus(state),
+        // todosList: filterByStatus(state.todosList, state.status),
+
         isChecked: state.todos.isChecked,
     }
 };

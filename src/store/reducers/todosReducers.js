@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 
 const todosRedcers = (state = INITIAL_STATE, action) => {
     const {todosList, isChecked} = state
-    const list = JSON.parse(JSON.stringify(todosList))
+    // const list = JSON.parse(JSON.stringify(todosList))
     switch (action.type) {
         case ADD_TODO:
             return {
