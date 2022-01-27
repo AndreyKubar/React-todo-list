@@ -8,20 +8,22 @@ import TodoList from './components/TodoList';
 import Footer from './components/Footer';
 
 
-const isNotChecked = (todos = []) => todos.find(todo => !todo.isCompleted)
+// const isNotChecked = (todos = []) => todos.find(todo => !todo.isCompleted)
 
-const filterByStatus = (todos = [], status = '', id = '') => {
-  switch (status) {
-    case 'ACTIVE':
-      return todos.filter(todo => !todo.isCompleted)
-    case 'COMPLETED':
-      return todos.filter(todo => todo.isCompleted)
-    case 'REMOVE':
-      return todos.filter(todo => todo.id !== id)
-    default:
-      return todos;
-  }
-}
+// const filterByStatus = (todos = [], status = '', id = '') => {
+//   switch (status) {
+//     case 'ACTIVE':
+//       return todos.filter(todo => !todo.isCompleted)
+//     case 'COMPLETED':
+//       return todos.filter(todo => todo.isCompleted)
+//     case 'REMOVE':
+//       return todos.filter(todo => todo.id !== id)
+//     default:
+//       return todos;
+//   }
+// }
+
+
 
 class App extends React.Component {
   // state = {
@@ -96,6 +98,8 @@ class App extends React.Component {
   //     todosList: filterByStatus(todosList, 'REMOVE', id)
   //   })
   // }
+
+  
 
 
   render () {

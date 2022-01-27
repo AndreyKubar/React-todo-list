@@ -25,51 +25,59 @@ const todosRedcers = (state = INITIAL_STATE, action) => {
     const list = JSON.parse(JSON.stringify(todosList))
     switch (action.type) {
         case ADD_TODO:
-            return Object.assign({}, state, {
-                todosList: [...list, action.todo]
-            })
+            return {
+                state,
+                todosList: [...todosList, action.todo]
+            }
         case GET_TODO_EDIT_ID:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 todoEditId: action.id
-            })
+            }
         case ON_EDIT_TODO:
-            if (action.index >= 0) {
-                list.splice(action.index, 1, action.todo)
-              }
-            return Object.assign({}, state, {
-                todosList: list,
-                todoEditId: ''
+            const updatedList = state.todosList.map((item, idx) => {
+                if (idx !== action.index) return item;
+                return action.todo
             })
+            return {
+                state,
+                todosList: updatedList
+            }
         case TODO_COMPLETED:
             const updateList = todosList.map(todo => 
                 todo.id === action.id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
-            return Object.assign({}, state, {
-              todosList: updateList,
-              isChecked: !isNotChecked(updateList)
+            return {
+                state,
+                todosList: updateList,
+                isChecked: !isNotChecked(updateList)
 
-            })
+            }
 
         case CHECK_ALL_TODOS:
-            return Object.assign({}, state, {
+            return {
+                state,
                 todosList: todosList.map(todo => ({...todo, isCompleted: !isChecked})),
                 isChecked: !isChecked
-            })
+            }
 
         case REMOVE_TODO:
-            return Object.assign({}, state, {
+            return {
+                state,
                 todosList: filterByStatus(todosList, 'REMOVE', action.id)
 
-            })
+            }
 
         case SET_STATUS_FILTER:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 status: action.status
-            })
+            }
         
         case CLEAR_COMPLETED:
-            return Object.assign({}, state, {
-              todosList: filterByStatus(todosList, 'ACTIVE')
-            })
+            return {
+                state,
+                todosList: filterByStatus(todosList, 'ACTIVE')
+            }
             
         default:
             return state
