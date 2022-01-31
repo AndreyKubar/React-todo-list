@@ -1,145 +1,78 @@
-import React from 'react';
-import {Provider} from 'react-redux'
-import store from './store'
+import React from 'react'
+import { Header } from './components/header/Header'
+import { TodoForm } from './components/todoForm/TodoForm'
+import {
+  addTodo,
+  deleteTodo,
+  deleteAllTodo,
+  updateTodo,
+  toggleTodo,
+  toggleAllTodoComplete,
+  toggleAllTodoUncomplete,
+  changeTodoInput,
+  setFilter
+} from "./redux/todos/actions"
+import { getTodosSelector } from "./redux/todos/selectors/selectors"
+import { connect } from 'react-redux'
+import './App.css'
 
-import './App.css';
-import Header from './components/Header';
-import TodoList from './components/TodoList';
-import Footer from './components/Footer';
+const App = ({
+  todo,
+  todos,
+  addTask,
+  deletTask,
+  deletAllTask,
+  updateTask,
+  toggleTask,
+  toggleAllTaskComplete,
+  toggleAllTaskUncomplete,
+  setTodo,
+  setTodos,
+  filter,
+  filterType,
+}) => {
 
+  return (
+    <div className='container'>
+      <div className='container__header'>
+        <Header />
+      </div>
+      <div className='container__todo'>
+        <TodoForm
+          todo={todo}
+          todos={todos}
+          addTask={addTask}
+          deletTask={deletTask}
+          deletAllTask={deletAllTask}
+          updateTask={updateTask}
+          toggleTask={toggleTask}
+          toggleAllTaskComplete={toggleAllTaskComplete}
+          toggleAllTaskUncomplete={toggleAllTaskUncomplete}
+          setTodo={setTodo}
+          setTodos={setTodos}
+          filter={filter}
+          filterType={filterType}
+        />
+      </div>
+    </div>
+  )
+}
 
-// const isNotChecked = (todos = []) => todos.find(todo => !todo.isCompleted)
+const mapStateToProps = (state) => {
+  const { todosReducers: { todo, filterType } } = state
+  return { todo, filterType, todos: getTodosSelector(state) }
+}
 
-// const filterByStatus = (todos = [], status = '', id = '') => {
-//   switch (status) {
-//     case 'ACTIVE':
-//       return todos.filter(todo => !todo.isCompleted)
-//     case 'COMPLETED':
-//       return todos.filter(todo => todo.isCompleted)
-//     case 'REMOVE':
-//       return todos.filter(todo => todo.id !== id)
-//     default:
-//       return todos;
-//   }
-// }
+const mapDispatchToProps = {
+  addTask: addTodo,
+  deletTask: deleteTodo,
+  deletAllTask: deleteAllTodo,
+  updateTask: updateTodo,
+  toggleTask: toggleTodo,
+  toggleAllTaskComplete: toggleAllTodoComplete,
+  toggleAllTaskUncomplete: toggleAllTodoUncomplete,
+  setTodo: changeTodoInput,
+  filter: setFilter,
+}
 
-
-
-class App extends React.Component {
-  // state = {
-  //   todosList: [],
-  //   todoEditId: '',
-  //   isChecked: false,
-  //   status: 'ALL'
-  // }
-
-  // componentWillMount() {
-  //   this.setState({
-  //     isChecked: !isNotChecked(this.state.todosList)
-  //   })
-  // }
-
-  // addTodo = (todo = {}) => {
-  //   this.setState(preState => ({
-  //     todosList: [...preState.todosList, todo]
-  //   }))
-  //   console.log(todo);
-  // }
-
-  // getTodoEditId = (id = '') => {
-  //   this.setState({ todoEditId: id})
-  // }
-
-  // onEditTodo = (todo = {}, index = -1) => {
-  //   if (index >= 0) {
-  //     const {todosList: list} = this.state
-  //     list.splice(index, 1, todo)
-  //     this.setState({
-  //       todosList: list,
-  //       todoEditId: '',
-  //       isNotChecked: false,
-  //     })
-  //   }
-  // }
-
-  // todoCompleted = (id = '') => {
-  //   const {todosList} = this.state
-  //   const updateList = todosList.map(todo => todo.id === id ? ({...todo, isCompleted: !todo.isCompleted}) : todo)
-  //   this.setState(preState => ({
-  //     todosList: updateList,
-  //     isChecked: !isNotChecked(updateList)
-  //   }))
-  // }
-
-  // checkAllTodos = () => { 
-  //   const {todosList, isChecked} = this.state
-  //   this.setState(preState => ({
-  //     todosList: todosList.map(todo => ({...todo, isCompleted: !isChecked})),
-  //     isChecked: !preState.isChecked
-  //   }))
-  // }
-
-  // setStatusFilter = (status = '') => {
-  //   this.setState({
-  //     status
-  //   })
-  // } 
-
-  // clearCompleted = () => {
-  //   const {todosList} = this.state
-  //   this.setState({
-  //     todosList: filterByStatus(todosList, 'ACTIVE')
-  //   })
-  // }
-
-  // removeTodo =(id = '') => {
-  //   const {todosList} = this.state
-  //   this.setState({
-  //     todosList: filterByStatus(todosList, 'REMOVE', id)
-  //   })
-  // }
-
-  
-
-
-  render () {
-
-    // const { todosList, todoEditId, isChecked, status } = this.state
-    return (
-      <Provider store={store}>
-        <div className="todoapp">
-
-          <Header
-            // addTodo={this.addTodo}
-            // isChecked={isChecked}
-
-          />
-          <TodoList
-            // todosList={filterByStatus(todosList, status)}
-            // getTodoEditId={this.getTodoEditId}
-            // todoEditId={todoEditId}
-            // onEditTodo={this.onEditTodo}
-            // todoCompleted={this.todoCompleted}
-            // isChecked={isChecked}
-            // checkAllTodos={this.checkAllTodos}
-            // removeTodo={this.removeTodo}
-          />
-          <Footer
-            // setStatusFilter={this.setStatusFilter}
-            // status={status}
-            // clearCompleted={this.clearCompleted}
-            // numOfTodos={todosList.length}
-            // numOfTodosLeft={filterByStatus(todosList, 'ACTIVE').length}
-          />
-
-        </div>
-      </Provider>
-
-    );
-  }
-  
-
-} 
-
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App)
